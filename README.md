@@ -4,7 +4,7 @@ A structured dataset and analysis of GDPR and EU AI Act enforcement decisions ac
 
 ## Purpose
 
-This project tracks enforcement decisions in EU digital regulation (primarily GDPR, with emerging coverage of the EU AI Act) across multiple Member States and digital sectors. The goal is to examine how legal rules operate in practice and whether enforcement outcomes are consistent across jurisdictions.
+This project tracks enforcement decisions in EU digital regulation (primarily GDPR) across multiple Member States and digital sectors. The goal is to examine how legal rules operate in practice and whether enforcement outcomes are consistent across jurisdictions.
 
 ## Research Question
 
