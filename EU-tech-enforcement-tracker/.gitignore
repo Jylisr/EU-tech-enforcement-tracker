@@ -1,0 +1,17 @@
+# R
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj.user/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated output (uncomment if you don't want figures/tables in version control)
+# output/*.png
+# output/*.csv
+
+# Paper drafts / temp files
+paper/~$*
+paper/*.tmp

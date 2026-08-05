@@ -1,0 +1,11 @@
+case_id,member_state,authority,year,sector,legal_basis,violation_type,enforcing_body,damages_awarded,harm_type,cross_border
+EU-001,IE,Circuit Court (Ireland),2023,other,Art. 82; Art. 6,unlawful_processing,court_first_instance,2000,non_material,FALSE
+EU-002,IE,Circuit Court (Ireland),2023,other,Art. 82; Art. 9,unlawful_processing,court_first_instance,7500,non_material,FALSE
+EU-003,DE,Landgericht Köln,2023,social_media,Art. 82,security_breach,court_first_instance,NA,none_found,TRUE
+EU-004,DE,Landgericht Köln,2022,financial_services,Art. 82; Art. 32; Art. 5,security_breach,court_first_instance,1200,non_material,FALSE
+EU-005,FR,Commission Nationale de l'Informatique et des Libertés,2025,ecommerce,Art. 6; Art. 12; Art. 13; Art. 32; Art. 35,unlawful_processing,DPA,NA,none_found,TRUE
+EU-006,FI,Office of the Data Protection Ombudsman (Finland),2020,other,Art. 13; Art. 21,transparency_failure,DPA,NA,none_found,FALSE
+EU-007,FI,Office of the Data Protection Ombudsman (Finland),2023,financial_services,Art. 12; Art. 15,data_subject_rights,DPA,NA,none_found,FALSE
+EU-008,FI,Office of the Data Protection Ombudsman (Finland),2023,health_tech,Art. 9,unlawful_processing,DPA,NA,none_found,TRUE
+EU-009,EE,Andmekaitse Inspektsioon,2025,other,Art. 32,security_breach,DPA,NA,none_found,FALSE
+EU-010,EE,Andmekaitse Inspektsioon,2022,other,Art. 6; Art. 12; Art. 13,unlawful_processing,DPA,NA,none_found,FALSE

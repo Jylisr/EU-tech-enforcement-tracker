@@ -10,12 +10,23 @@ library(tidyverse)
 
 # ── 1. LOAD DATA ─────────────────────────────────────────────
 
-data_path <- file.path(dirname(rstudioapi::getActiveDocumentContext()$path),
-                        "..", "data", "enforcement_data.csv")
+data_path <- "data/enforcement_data.csv"
 
-# Fallback for non-RStudio environments
-if (!exists("data_path") || !file.exists(data_path)) {
-  data_path <- "data/enforcement_data.csv"
+# If running interactively from RStudio and the relative path above doesn't
+# resolve (e.g. working directory isn't the repo root), try to locate the
+# file relative to the currently open script instead.
+if (!file.exists(data_path) && requireNamespace("rstudioapi", quietly = TRUE) &&
+    rstudioapi::isAvailable()) {
+  doc_path <- tryCatch(rstudioapi::getActiveDocumentContext()$path, error = function(e) "")
+  if (nzchar(doc_path)) {
+    candidate <- file.path(dirname(doc_path), "..", "data", "enforcement_data.csv")
+    if (file.exists(candidate)) data_path <- candidate
+  }
+}
+
+if (!file.exists(data_path)) {
+  stop("Could not find data/enforcement_data.csv. Run this script from the ",
+       "repo root, or check that the dataset has been created.")
 }
 
 df <- read_csv(data_path, show_col_types = FALSE) |>
@@ -28,6 +39,13 @@ df <- read_csv(data_path, show_col_types = FALSE) |>
   )
 
 cat("Dataset loaded:", nrow(df), "decisions\n")
+
+if (nrow(df) == 0) {
+  stop("enforcement_data.csv has no rows yet. Code at least 10 real cases ",
+       "(Part 1 of the guide) before running this analysis — the file ",
+       "currently only has the column headers.")
+}
+
 cat("Member States covered:", nlevels(df$member_state), "\n")
 cat("Years covered:", min(df$year), "-", max(df$year), "\n\n")
 
@@ -51,9 +69,12 @@ print(decisions_by_sector)
 
 # ── 3. PRIVATE ENFORCEMENT (ART. 82) ─────────────────────────
 
-# Filter to Art. 82 cases with damages awarded
+# Filter to Art. 82 cases with damages awarded.
+# legal_basis may list multiple articles separated by semicolons (primary
+# article first per the coding rules), so match anywhere in the string
+# rather than requiring an exact match.
 art82 <- df |>
-  filter(legal_basis == "Art. 82", !is.na(damages_awarded))
+  filter(str_detect(legal_basis, "Art\\. 82"), !is.na(damages_awarded))
 
 cat("\nArt. 82 cases with damages awarded:", nrow(art82), "\n\n")
 
@@ -74,6 +95,9 @@ cat("Non-material damages by Member State (Art. 82 cases):\n")
 print(damages_by_state)
 
 # ── 4. VISUALISATIONS ────────────────────────────────────────
+
+dir.create("analysis", showWarnings = FALSE)
+dir.create("output", showWarnings = FALSE)
 
 # 4a. Damages distribution by member state
 p1 <- art82 |>
